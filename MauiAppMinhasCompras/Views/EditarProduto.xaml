@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiAppMinhasCompras.Views.EditarProduto"
+             Title="{Binding Descricao}">
+    <!-- Alterações da Agenda 5 - Já exibe o Nome do Produto -->
+
+
+    <ContentPage.ToolbarItems>
+
+        <ToolbarItem Text="Salvar" Clicked="ToolbarItem_Clicked" />
+
+        <ToolbarItem Text="Voltar" Clicked="ToolbarItem_Clicked_1"  />
+
+    </ContentPage.ToolbarItems>
+
+
+    <VerticalStackLayout Spacing="10" Margin="10">
+
+        <Label  Text=" Descrição do Produto:" BackgroundColor="Aquamarine"/>
+        <Entry x:Name="txt_descricao" Text="{Binding Descricao}"/>
+
+        <Label Text="Quantidade: "  BackgroundColor="Aquamarine"/>
+        <Entry x:Name="txt_quantidade" Text="{Binding Quantidade}" Keyboard="Numeric" />
+
+        <Label Text="Preço Unitário:" BackgroundColor="Aquamarine"/>
+        <Entry x:Name="txt_preco" Text="{Binding Preco}" Keyboard="Numeric"/>
+
+    </VerticalStackLayout>
+</ContentPage>
