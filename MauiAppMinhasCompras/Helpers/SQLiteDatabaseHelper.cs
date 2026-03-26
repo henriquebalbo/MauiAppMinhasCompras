@@ -48,19 +48,26 @@ namespace MauiAppMinhasCompras.Helpers
             return _db.QueryAsync<Produto>(sql);
         }
 
-
+        //Agenda 06 - Criar novo método para o filtro de pesquisa por categoria
+        public Task<List<Produto>> SearchByCategoria(string categoria)
+        {
+            // Retorna apenas os produtos onde a categoria coincide com a selecionada
+            return _db.Table<Produto>().Where(i => i.Categoria == categoria).ToListAsync();
+        }
 
 
         // MÉTODO PARA ATUALIZAR UM PRODUTO 
+
+        //Alerado Agenda - método Update foi modificado para retornar uma lista atualizada do produto, em vez de um inteiro indicando o número de registros afetados.
 
 
         public Task<List<Produto>> Update(Produto p) // Retorna uma tarefa contendo a lista do produto atualizada 
         {
             
-            string sql = "UPDATE Produto SET Descricao=?, Quantidade=?, Preco=? WHERE Id=?";  // String com o comando SQL padrão para atualização e 
+            string sql = "UPDATE Produto SET Descricao=?, Quantidade=?, Preco=?, Categoria=? WHERE Id=?";  // String com o comando SQL padrão para atualização e 
                                                                                               // o uso de interrogação para indicar espaços reservados                                                                                  // Executamos a query de forma assíncrona. 
                                                                                               
-            return _db.QueryAsync<Produto>(sql, p.Descricao, p.Quantidade, p.Preco, p.Id);// os valores que devem substituir cada interrogação
+            return _db.QueryAsync<Produto>(sql, p.Descricao, p.Quantidade, p.Preco,p.Categoria, p.Id);// os valores que devem substituir cada interrogação
                                                                                           // 1 Descrição, 2 Quantidade, 3 Preço e 4 o ID para saber qual linha altera
         }
 
@@ -72,7 +79,13 @@ namespace MauiAppMinhasCompras.Helpers
             return _db.Table<Produto>().DeleteAsync(i => i.Id == id); // Acessar a tabela Produto e deletar o item onde o ID do banco seja igual ao ID que foi oferecido por parâmetro
         }
 
-        
-    }
+        // Agenda 06 - Criar novo metodo para o filtro de pesquisa por categoria
+        public Task<List<Produto>> GetByCategoria(string categoria)
+        {
+            return _db.Table<Produto>().Where(i => i.Categoria == categoria).ToListAsync();
+
+
+
+        }        }
 
 }

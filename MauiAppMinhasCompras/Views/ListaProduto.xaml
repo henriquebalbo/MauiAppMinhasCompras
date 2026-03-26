@@ -7,7 +7,12 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Somar" Clicked="ToolbarItem_Clicked_1" />
         <ToolbarItem Text="Adicionar" Clicked="ToolbarItem_Clicked"/>
+        <ToolbarItem Text="Relatório" Clicked="ToolbarItem_Clicked_2" />
+
+        
+        
     </ContentPage.ToolbarItems>
+    
 
     <VerticalStackLayout Spacing="15" Padding="30">
         
@@ -15,17 +20,34 @@
         <SearchBar x:Name="txt_search"
                    Placeholder="Pesquisando Produtos"
                    TextChanged="txt_search_TextChanged"/>
-        <!-- adiconar o evento textchanged - novo manipulador de eventos -->
+        
+        <!-- Agenda 6 - adiconar filtro na interface  -->
+
+        <Label Text="Filtrar por Categoria:" FontAttributes="Bold" />
+        <Picker x:Name="pck_filtro_categoria" 
+        Title="Selecione uma categoria"
+        SelectedIndexChanged="pck_filtro_categoria_SelectedIndexChanged">
+            <Picker.Items>
+                <x:String>Todos</x:String>
+                <x:String>Alimentos</x:String>
+                <x:String>Higiene</x:String>
+                <x:String>Limpeza</x:String>
+            </Picker.Items>
+        </Picker>
+
+
+
 
         <!-- O cabeçalho deve ser definido usando a propriedade Header diretamente no ListView -->
         <ListView x:Name="lst_produtos" ItemSelected="lst_produtos_ItemSelected">
             <ListView.Header>
-                <Grid ColumnDefinitions="*, *, *, *, *">
+                <Grid ColumnDefinitions="*, *, *, *, *, *">
                     <Label Grid.Column="0" Text="ID"/>
                     <Label Grid.Column="1" Text="Nome do produto" />
-                    <Label Grid.Column="2" Text="Preço" />
-                    <Label Grid.Column="3" Text="Quantidade" />
-                    <Label Grid.Column="4" Text="Total" />
+                    <Label Grid.Column="2" Text="Categoria" />
+                    <Label Grid.Column="3" Text="Preço" />
+                    <Label Grid.Column="4" Text="Quantidade" />
+                    <Label Grid.Column="5" Text="Total" />
                 </Grid>
             </ListView.Header>
             <ListView.ItemTemplate>
@@ -38,18 +60,23 @@
                             <!--ações de contexto-->
                             <MenuItem Text="Remover" Clicked="MenuItem_Clicked"/>
                         </ViewCell.ContextActions>
-                        <Grid ColumnDefinitions="*, *, *, *, *">
+                        <Grid ColumnDefinitions="*, *, *, *, *, *">
                             <Label Grid.Column="0" Text="{Binding Id}" />
                             <!-- chamando as propriedades da classe Model  -->
                             <Label Grid.Column="1" Text="{Binding Descricao}"/>
-                            <Label Grid.Column="2" Text="{Binding Preco}" />
-                            <Label Grid.Column="3" Text="{Binding Quantidade}" />
-                            <Label Grid.Column="4" Text="{Binding Total}"/>
+                            <Label Grid.Column="2" Text="{Binding Categoria}" />
+                            <Label Grid.Column="3" Text="{Binding Preco}" />
+                            <Label Grid.Column="4" Text="{Binding Quantidade}" />
+                            <Label Grid.Column="5" Text="{Binding Total}"/>
+                            
+                            
                         </Grid>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        
+        
         <!-- gerar uma lista para o usuário - Alterada na Agenda 5- criando novo evento - símbolo do Raio -->
         
     </VerticalStackLayout>

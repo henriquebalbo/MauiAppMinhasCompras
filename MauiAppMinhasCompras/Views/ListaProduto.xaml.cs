@@ -38,6 +38,27 @@ public partial class ListaProduto : ContentPage
 
     }
 
+    //Agenda 6 - Relatório por Categoria
+    private async void ExibirRelatorioPorCategoria()
+    {
+        List<Produto> todos = await App.Banco.GetAll();
+
+        // Agrupa por categoria e soma o Total de cada grupo
+        var relatorio = todos.GroupBy(p => p.Categoria)
+                             .Select(g => new {
+                                 Categoria = g.Key ?? "Sem Categoria",
+                                 TotalGasto = g.Sum(p => p.Total)
+                             });
+
+        string mensagem = "Gasto por Categoria:\n";
+        foreach (var item in relatorio)
+        {
+            mensagem += $"{item.Categoria}: {item.TotalGasto:C}\n";
+        }
+
+        await DisplayAlert("Relatório", mensagem, "OK");
+    }
+
     private void ToolbarItem_Clicked(object sender, EventArgs e)
     {
         try
@@ -132,4 +153,42 @@ public partial class ListaProduto : ContentPage
             DisplayAlert("Erro", ex.Message, "OK");
         }
     }
+
+    // Agenda 6 - Botão Relatório por Categoria
+    private void ToolbarItem_Clicked_2(object sender, EventArgs e)
+    {
+        ExibirRelatorioPorCategoria();
+    }
+
+    // criar o evento que é disparado quando o usuário muda a categoria no seletor de categoria
+    private async void pck_filtro_categoria_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        try
+        {
+            string categoriaSelecionada = pck_filtro_categoria.SelectedItem.ToString();
+
+            lista.Clear();
+            List<Produto> tmp;
+
+            if (categoriaSelecionada == "Todos")
+            {
+                // Se escolher "Todos", busca tudo do banco
+                tmp = await App.Banco.GetAll();
+            }
+            else
+            {
+                // Caso contrário, usa o novo método de busca por categoria
+                tmp = await App.Banco.SearchByCategoria(categoriaSelecionada);
+            }
+
+            // Atualiza a ObservableCollection que está ligada à ListView
+            tmp.ForEach(i => lista.Add(i));
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Erro", ex.Message, "OK");
+        }
+    }
+
+
 }

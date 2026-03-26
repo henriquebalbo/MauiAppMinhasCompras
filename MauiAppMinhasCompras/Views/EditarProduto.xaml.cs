@@ -22,7 +22,8 @@ public partial class EditarProduto : ContentPage
                                        // garantir que o produto existente seja atualizado corretamente no banco de dados
                 Descricao = txt_descricao.Text,
                 Quantidade = Convert.ToDouble(txt_quantidade.Text),
-                Preco = Convert.ToDouble(txt_preco.Text)
+                Preco = Convert.ToDouble(txt_preco.Text),
+                Categoria = pck_categoria.SelectedItem.ToString() // Agenda 6 - Captura a categoria
 
             };
 

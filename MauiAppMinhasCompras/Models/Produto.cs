@@ -58,7 +58,10 @@ namespace MauiAppMinhasCompras.Models
                 _quantidade = value;
             }
         }
-                public double Total => Quantidade * Preco; // propriedade calculada que retorna o valor total do produto (preço multiplicado pela quantidade)
+
+        //Agenda 6 - Adicionando a categoria do produto
+        public string Categoria { get; set; } // propriedade que armazena a categoria do produto
+        public double Total => Quantidade * Preco; // propriedade calculada que retorna o valor total do produto (preço multiplicado pela quantidade)
     }
     
 }
